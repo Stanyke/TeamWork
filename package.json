@@ -1,0 +1,46 @@
+{
+  "name": "teamwork",
+  "version": "1.0.0",
+  "description": "Teamwork is an internal social network for employees of an organization. The goal of this application is to facilitate more interaction between colleagues and promote team bonding.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --exec babel-node backend/server.js",
+    "start:teamwork": "nodemon --exec babel-node backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stanyke/TeamWork.git"
+  },
+  "keywords": [
+    "API",
+    "Teamwork",
+    "Andela"
+  ],
+  "author": "Stanley Chibuike",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Stanyke/TeamWork/issues"
+  },
+  "homepage": "https://github.com/Stanyke/TeamWork#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/register": "^7.6.2",
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "nodemon": "^1.19.4"
+  },
+  "dependencies": {
+    "chai": "^4.2.0",
+    "cookie-parser": "^1.4.4",
+    "debug": "^4.1.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mocha": "^6.2.2",
+    "morgan": "^1.9.1"
+  }
+}
