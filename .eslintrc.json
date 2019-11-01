@@ -1,7 +1,8 @@
 {
     "env": {
         "browser": true,
-        "es6": true
+        "es6": true,
+        "node": true
     },
     "extends": [
         "airbnb-base"
@@ -15,5 +16,7 @@
         "sourceType": "module"
     },
     "rules": {
+        "linebreak-style": 0,
+        "eol-last": 0
     }
 }
