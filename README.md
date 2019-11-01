@@ -3,7 +3,7 @@ Teamwork is an internal social network for employees of an organization. The goa
 
 The projet is built with NodeJS.
 
-The server is running on localhost:3000 which can be started with the following command "npm run start:teamwork" without the quotes.
+The server is running on localhost:3000 which can be started with the following command "npm run start:teamwork" without the quotes. Also the setting that made this happen can be located in the package.json file on line 9.
 
 Below are the tools installed to this NodeJS project (N), their functions (F) and how it was installed (H):
 
