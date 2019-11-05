@@ -3,9 +3,6 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 
-// Import routes
-const authRoute = require('./routes/auth');
-
 const app = express();
 
 
@@ -29,9 +26,5 @@ app.use((req, res, next) =>
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: 'true' }));
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
-
-//routes
-app.use('/auth', authRoute);
-
 
 module.exports = app;
