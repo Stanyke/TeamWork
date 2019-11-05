@@ -11,7 +11,7 @@ Below are the tools installed to this NodeJS project (N), their functions (F) an
 
 2. (N) Express,     (F) Helps in writing the code simpler and faster,         (H) npm i -S express
 
-3. (N) Nodemon,     (F) Helps refreshes the server aautomatically each time new changes are made,       (H) npmi -D nodemon
+3. (N) Nodemon,     (F) Helps refreshes the server aautomatically each time new changes are made,       (H) npm i -D nodemon
 
 4. Created a file name ".babelrc" in the root directory without the quotes just after installing babel and there you can see i'm telling the babel we are working with the environment.
 
