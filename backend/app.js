@@ -2,9 +2,7 @@ import express from 'express';
 
 import bodyParser from 'body-parser';
 
-
 const app = express();
-
 
 //Routes Middlewares
 app.get('/', (req, res) =>
@@ -12,6 +10,7 @@ app.get('/', (req, res) =>
     // res.send('Hello user, more coming...');
     res.status(200).send({ 'message': 'YAY! Congratulations! Your first endpoint is working' });
 });
+
 
 app.use((req, res, next) =>
 {
@@ -26,5 +25,6 @@ app.use((req, res, next) =>
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: 'true' }));
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+
 
 module.exports = app;
