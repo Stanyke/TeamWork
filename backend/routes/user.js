@@ -10,7 +10,7 @@ app.get('/', (req, res) =>
 });
 
 
-app.get('/auth/creat-user', (req, res) =>
+app.get('/auth/create-user', (req, res) =>
 {
     // res.send('Hello user, more coming...');
     res.status(200).send({ 'message': 'YAY! Congratulations! Your first endpoint is working' });
@@ -35,6 +35,36 @@ async function readUsers()
         return [];
     }
 }
+
+//For inserting to db
+app.post('/auth/create-user', async (req, res) =>
+{
+    try
+    {
+        const createUser = await client.query('INSERT INTO users (firstname, lastname, email, password, gender, jobrole, department, address) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [req.query.firstname, req.query.lastname, req.query.email, req.query.password, req.query.gender, req.query.jobrole, req.query.department, req.query.address]);
+
+       if (createUser)
+        {
+            res.json({
+                result: 'ok cool'
+            });
+            console.log('Name:', res.rows[0]);
+            console.log(res.rows[1]);
+            return res.redirect('/users');
+        }
+        
+            res.json({
+                result: 'failed',
+                data: {},
+                message: `New user registeration failed`
+            });
+   }
+   catch (error)
+    {
+        error;
+    }
+});
+
 
 const routeApp = app;
 
