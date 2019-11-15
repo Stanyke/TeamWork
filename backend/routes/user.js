@@ -37,33 +37,64 @@ async function readUsers()
 }
 
 //For inserting to db
-app.post('/auth/create-user', async (req, res) =>
+app.post('/auth/create-user', function(req, response, next)
 {
-    try
+    // Grab data from http request
+    const data =
     {
-        const createUser = await client.query('INSERT INTO users (firstname, lastname, email, password, gender, jobrole, department, address) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [req.query.firstname, req.query.lastname, req.query.email, req.query.password, req.query.gender, req.query.jobrole, req.query.department, req.query.address]);
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        password: req.body.password,
+        gender: req.body.gender,
+        jobRole: req.body.jobRole,
+        department: req.body.department,
+        address: req.body.address
+    };
 
-       if (createUser)
+    const values =
+    [
+        data.firstname,
+        data.lastname,
+        data.email,
+        data.password,
+        data.gender,
+        data.jobRole,
+        data.department,
+        data.address
+    ];
+
+    client.query("SELECT email FROM users WHERE email ='"+data.email+"'", (err, res) =>
+    {
+        if (res)
         {
-            res.json({
-                result: 'ok cool'
-            });
-            console.log('Name:', res.rows[0]);
-            console.log(res.rows[1]);
-            return res.redirect('/users');
+            console.log(data.email, "Already Exist");
+            response.send({ 'Email': data.email+' Already Exists' });
         }
         
-            res.json({
-                result: 'failed',
-                data: {},
-                message: `New user registeration failed`
-            });
-   }
-   catch (error)
-    {
-        error;
-    }
+        else
+        {
+            client.query('INSERT INTO users (firstname, lastname, email, password, gender, jobRole, department, address) values($1, $2, $3, $4, $5, $6, $7, $8)', values, (err, res) =>
+            {
+                if (err)
+                {
+                    console.log(err);
+                    response.send('Oops we encountered a server error, Try Again...');
+                }
+                
+                if (!err)
+                {
+                    response.send('User Created');
+                    console.log(data.firstname, "User Created" );
+                }
+            })
+        }
+
+    });
+    
 });
+
+
 
 
 const routeApp = app;
