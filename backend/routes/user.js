@@ -1,19 +1,28 @@
+import bcrypt from 'bcrypt';
+
 import app from '../app';
 
 import client from '../db/connectDB';
 
+import justAuthenticate from '../middlewares/verifyToken';
+
+const jwt = require('jsonwebtoken');
+
+
 //Routes Middlewares
-app.get('/', (req, res) =>
+app.post('/lol', justAuthenticate, (req, res) =>
 {
-    // res.send('Hello user, more coming...');
-    res.status(200).send({ 'message': 'YAY! Congratulations! Your first endpoint is working' });
-});
-
-
-app.get('/auth/create-user', (req, res) =>
-{
-    // res.send('Hello user, more coming...');
-    res.status(200).send({ 'message': 'YAY! Congratulations! Your first endpoint is working' });
+    jwt.verify(req.token, 'myscreteisreal', (err, authData) =>
+    {
+        if (err)
+        {
+            res.sendStatus(403);
+        }
+        else
+        {
+            res.status(201).send({ 'message': 'YAY! Congratulations! Your first endpoint is working', authData });
+        }
+    });
 });
 
 
@@ -36,12 +45,60 @@ async function readUsers()
     }
 }
 
-//For inserting to db
-app.post('/auth/create-user', function(req, response, next)
+
+//For Login in
+app.post('/auth/signin', (req, result) =>
+{
+    const data = {
+        email: req.body.email,
+        password: req.body.password
+    };
+
+    client.query(`SELECT password FROM users WHERE email ='${req.body.email}' LIMIT 1`, (err, res) =>
+    {
+        if (res.rows[0])
+        {
+            const userPasswrd = res.rows[0].password;
+
+            bcrypt.compare(data.password, userPasswrd).then((valid) =>
+            {
+                if (!valid)
+                {
+                    console.log('Incorrect password!');
+                    result.status(401).send('Incorrect password!');
+                }
+
+                if (valid)
+                {
+                    jwt.sign({ data }, 'myscreteisreal', { expiresIn: '2h' }, (derr, token) =>
+                    {
+                        result.json({
+                            token
+                        });
+                    });
+                }
+            });
+        }
+
+        if (err)
+        {
+            result.status(500).send('We Encountered An Internal Error, Try Again...');
+        } 
+
+        if (!res.rows[0])
+        {
+            console.log('Email Does not Exists');
+            result.status(404).send('Email Does not Exists');
+        }
+    });
+});
+
+
+//For creating Account
+app.post('/auth/create-user', function (req, response)
 {
     // Grab data from http request
-    const data =
-    {
+    const data = {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
@@ -49,53 +106,51 @@ app.post('/auth/create-user', function(req, response, next)
         gender: req.body.gender,
         jobRole: req.body.jobRole,
         department: req.body.department,
-        address: req.body.address
+        address: req.body.address,
+        isAdmin: req.body.isAdmin
     };
 
-    const values =
-    [
-        data.firstname,
-        data.lastname,
-        data.email,
-        data.password,
-        data.gender,
-        data.jobRole,
-        data.department,
-        data.address
-    ];
-
-    client.query("SELECT email FROM users WHERE email ='"+data.email+"'", (err, res) =>
+    client.query(`SELECT email FROM users WHERE email ='${req.body.email}'`, (err, res) => 
     {
-        if (res)
+        if (err)
         {
-            console.log(data.email, "Already Exist");
-            response.send({ 'Email': data.email+' Already Exists' });
+            console.log('We Encountered An Internal Error, Try Again...');
+            response.status(500).send('We Encountered An Internal Error, Try Again...');
         }
+
+        if (res.rows[0])
+        {
+            console.log(req.body.email, "Already Exist");
+            return response.send(`${req.body.email} Already Exist`);
+        }
+
         
-        else
+        bcrypt.hash(req.body.password, 10, function (error, hash)
         {
-            client.query('INSERT INTO users (firstname, lastname, email, password, gender, jobRole, department, address) values($1, $2, $3, $4, $5, $6, $7, $8)', values, (err, res) =>
+            if (error)
             {
-                if (err)
-                {
-                    console.log(err);
-                    response.send('Oops we encountered a server error, Try Again...');
-                }
-                
-                if (!err)
-                {
-                    response.send('User Created');
-                    console.log(data.firstname, "User Created" );
-                }
-            })
-        }
+                console.log('We Encountered an issue processing your Account');
+                response.status(500).send('We Encountered an issue processing your Account');
+            }
+            
+            const realvalues = [data.firstname, data.lastname, data.email, hash, data.gender, data.jobRole, data.department, data.address, data.isAdmin];
 
+            client.query('INSERT INTO users (firstname, lastname, email, password, gender, jobRole, department, address, isAdmin) values($1, $2, $3, $4, $5, $6, $7, $8, $9)', realvalues, (derr, result) =>
+            {
+                if (derr)
+                {
+                    console.log('We Encountered an issue creating your Account');
+                    response.status(500).send('We Encountered an issue creating your Account');
+                }
+                if (result)
+                {
+                response.status(201).send(`${data.firstname}'s Account Created`);
+                console.log(`${data.firstname}'s Account Created`);
+                }
+            });
+        });
     });
-    
 });
-
-
-
 
 const routeApp = app;
 

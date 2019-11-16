@@ -35,7 +35,7 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: 'true' }));
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
 // upload photos
-
+/*
 cloudinary.uploader.upload('bad.jpg', { tags: 'basic_sample' }, function (err, image) {
   console.log();
   console.log("** File Upload");
@@ -44,5 +44,6 @@ cloudinary.uploader.upload('bad.jpg', { tags: 'basic_sample' }, function (err, i
   console.log("* " + image.public_id);
   console.log("* " + image.url);
 });
+*/
 
 module.exports = app;
