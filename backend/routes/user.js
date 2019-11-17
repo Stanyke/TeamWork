@@ -54,11 +54,12 @@ app.post('/auth/signin', (req, result) =>
         password: req.body.password
     };
 
-    client.query(`SELECT password FROM users WHERE email ='${req.body.email}' LIMIT 1`, (err, res) =>
+    client.query(`SELECT * FROM users WHERE email ='${req.body.email}' LIMIT 1`, (err, res) =>
     {
         if (res.rows[0])
         {
             const userPasswrd = res.rows[0].password;
+            const userId = res.rows[0].user_id;
 
             bcrypt.compare(data.password, userPasswrd).then((valid) =>
             {
@@ -70,10 +71,14 @@ app.post('/auth/signin', (req, result) =>
 
                 if (valid)
                 {
-                    jwt.sign({ data }, 'myscreteisreal', { expiresIn: '2h' }, (derr, token) =>
+                    jwt.sign({ data }, 'myscreteisreal', { expiresIn: '12h' }, (derr, token) =>
                     {
                         result.json({
-                            token
+                                "status": "success",
+                                "data": {
+                                "token": token,
+                                "userId": userId
+                            }
                         });
                     });
                 }
@@ -161,8 +166,50 @@ app.post('/auth/create-user', function (req, response)
                             }
                             if (result)
                             {
-                            response.status(201).send(`${data.firstname}'s Account Created`);
-                            console.log(`${data.firstname}'s Account Created`);
+                                client.query(`SELECT * FROM users WHERE email='${data.email}'`, (oerr, ures) =>
+                                {
+                                    if (oerr)
+                                    {
+                                        response.status(201).send(`Error Evaluating Account Created`);
+                                    }
+
+                                    if (ures.rows[0])
+                                    {
+                                        const usersData = {
+                                            email: req.body.email,
+                                            password: req.body.password
+                                        };
+
+                                        jwt.sign({ usersData }, 'myscreteisreal', { expiresIn: '12h' }, (tokenErr, token) =>
+                                        {
+                                            if (tokenErr)
+                                            {
+                                                console.log('Token could not be processed but account has been created');
+                                                response.status(201).send('Token could not be processed but account has been created');
+                                            }
+
+                                            if (token)
+                                            {
+                                                response.status(201).json({
+                                                    "status": "success",
+                                                    "data": {
+                                                    "message": "User account successfully created",
+                                                    "token": token,
+                                                    "userId": ures.rows[0].user_id
+                                                    }
+                                                });
+                                            }
+                                        });
+                                        
+                                    }
+                                    
+                                    if (!ures.rows[0])
+                                    {
+                                        response.status(201).send(`${data.firstname}'s Account Created`);
+                                    }
+                                    
+                                    console.log(`${data.firstname}'s Account Created`);
+                                });
                             }
                         });
                     });

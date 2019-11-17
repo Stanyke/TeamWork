@@ -9,7 +9,7 @@ const justAuthenticate = function isAuthenticated(req, res, next)
         return next();
     }
     
-    res.status(500).json({ error: "Not Authorized" });
+        res.status(403).json({ error: "You're Not Authorized To Create Post, As You're Not Logged In..." });
 };
 
 module.exports = justAuthenticate;
