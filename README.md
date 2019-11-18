@@ -1,6 +1,6 @@
 # TeamWork
 
-[![Build Status](https://travis-ci.org/Stanyke/TeamWork.svg?branch=post-article)](https://travis-ci.org/Stanyke/TeamWork)
+[![Build Status](https://travis-ci.org/Stanyke/TeamWork.svg?branch=post-article)](https://travis-ci.org/Stanyke/TeamWork) [![Coverage Status](https://coveralls.io/repos/github/Stanyke/TeamWork/badge.svg?branch=user-login)](https://coveralls.io/github/Stanyke/TeamWork?branch=user-login)
 
 Teamwork is an internal social network for employees of an organization. The goal of this application is to facilitate more interaction between colleagues and promote team bonding.
 
