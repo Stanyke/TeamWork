@@ -17,7 +17,7 @@ app.post('/gifs', justAuthenticate, (req, res) =>
     {
         if (err)
         {
-            res.status(403).json({ error: "You're Not Authorized To Create Post, As You're Not Logged In..." });
+            res.status(403).json({ error: "You're Not Authorized To Post Gif Files, As You're Not Logged In..." });
         }
         else
         {
@@ -61,7 +61,7 @@ app.post('/gifs', justAuthenticate, (req, res) =>
                             {
                                 if (uerr)
                                 {
-                                    console.log('Image Posted but failed insertingto database');
+                                    console.log('Image Posted but failed inserting to database');
                                     res.status(201).send('Image Posted but failed insertingto database');
                                 }
 
