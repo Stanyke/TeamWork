@@ -8,6 +8,8 @@ import gifRoute from './routes/gif';
 
 import articleRoute from './routes/article';
 
+import feedRoute from './routes/feed';
+
 import client from './db/connectDB';
 
 const port = process.env.PORT || 3000;

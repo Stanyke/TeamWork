@@ -10,26 +10,42 @@ const jwt = require('jsonwebtoken');
 
 
 //Routes Middlewares
-app.post('/lol', justAuthenticate, (req, res) =>
+app.get('/users', justAuthenticate, async (req, res) =>
 {
+    const rows = await readUsers();
+
     jwt.verify(req.token, 'myscreteisreal', (err, authData) =>
     {
         if (err)
         {
-            res.sendStatus(403);
+            res.status(403).json({ error: "You're Not Authorized To Fetch All User's Data, As You're Not Logged In With Correct Token..." });
         }
         else
         {
-            res.status(201).send({ 'message': 'YAY! Congratulations! Your first endpoint is working', authData });
+            const currentUserEmail = authData.data.email;
+
+            client.query(`SELECT * FROM users WHERE email ='${currentUserEmail}' LIMIT 1`, (Derr, Dres) =>
+            {
+                if (Derr)
+                {
+                    console.log('We Encountered An Issue Previewing Users');
+                    res.status(500).send('We Encountered An Issue Previewing Users');
+                }
+
+                if (Dres.rows[0])
+                {
+                    if (Dres.rows[0].isadmin === '1')
+                    {
+                        res.status(200).send(JSON.stringify(rows));
+                    }
+                    else
+                    {
+                        res.status(403).send("Oops, Just Admins Can Preview All");
+                    }
+                }
+            });
         }
     });
-});
-
-
-app.get('/users', async (req, res) =>
-{
-    const rows = await readUsers();
-    res.status(200).send(JSON.stringify(rows));
 });
 
 async function readUsers()
@@ -71,7 +87,7 @@ app.post('/auth/signin', (req, result) =>
 
                 if (valid)
                 {
-                    jwt.sign({ data }, 'myscreteisreal', { expiresIn: '60s' }, (derr, token) =>
+                    jwt.sign({ data }, 'myscreteisreal', { expiresIn: '10m' }, (derr, token) =>
                     {
                         result.json({
                                 "status": "success",
@@ -180,7 +196,7 @@ app.post('/auth/create-user', function (req, response)
                                             password: req.body.password
                                         };
 
-                                        jwt.sign({ usersData }, 'myscreteisreal', { expiresIn: '60s' }, (tokenErr, token) =>
+                                        jwt.sign({ usersData }, 'myscreteisreal', { expiresIn: '10m' }, (tokenErr, token) =>
                                         {
                                             if (tokenErr)
                                             {
