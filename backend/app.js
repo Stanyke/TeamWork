@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 const app = express();
 
 
-app.use((req, res, next) =>
+app.use('api/v1', (req, res, next) =>
 {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	
