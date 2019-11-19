@@ -9,7 +9,7 @@ import justAuthenticate from '../middlewares/verifyToken';
 
 const jwt = require('jsonwebtoken');
 
-app.post('/articles', justAuthenticate, (req, res) =>
+app.post('/api/v1/articles', justAuthenticate, (req, res) =>
 {
     jwt.verify(req.token, 'myscreteisreal', (err, authData) =>
     {
@@ -86,7 +86,7 @@ app.post('/articles', justAuthenticate, (req, res) =>
 });
 
 
-app.get('/articles/:id', justAuthenticate, (req, res) =>
+app.get('/api/v1/articles/:id', justAuthenticate, (req, res) =>
 {
     jwt.verify(req.token, 'myscreteisreal', (err) =>
     {
@@ -152,7 +152,7 @@ app.get('/articles/:id', justAuthenticate, (req, res) =>
 });
 
 
-app.patch('/articles/:id', justAuthenticate, (req, res) =>
+app.patch('/api/v1/articles/:id', justAuthenticate, (req, res) =>
 {
     jwt.verify(req.token, 'myscreteisreal', (err, authData) =>
     {
@@ -241,7 +241,7 @@ app.patch('/articles/:id', justAuthenticate, (req, res) =>
 });
 
 
-app.delete('/articles/:id', justAuthenticate, (req, res) =>
+app.delete('/api/v1/articles/:id', justAuthenticate, (req, res) =>
 {
     jwt.verify(req.token, 'myscreteisreal', (err, authData) =>
     {
@@ -315,7 +315,7 @@ app.delete('/articles/:id', justAuthenticate, (req, res) =>
 });
 
 
-app.post('/articles/:id/comment', justAuthenticate, (req, res) =>
+app.post('/api/v1/articles/:id/comment', justAuthenticate, (req, res) =>
 {
     jwt.verify(req.token, 'myscreteisreal', (err, authData) =>
     {

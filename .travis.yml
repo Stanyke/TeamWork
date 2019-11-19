@@ -1,6 +1,8 @@
 language: node_js
 node_js:
   - stable
+before_script:
+  chomd 0555 ./node_modules/.bin/jest
 script:
   - npm run test
   - npm run coveralls

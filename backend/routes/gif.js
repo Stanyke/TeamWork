@@ -11,7 +11,7 @@ import justAuthenticate from '../middlewares/verifyToken';
 
 const jwt = require('jsonwebtoken');
 
-app.post('/gifs', justAuthenticate, (req, res) =>
+app.post('/api/v1/gifs', justAuthenticate, (req, res) =>
 {
     jwt.verify(req.token, 'myscreteisreal', (err, authData) =>
     {
@@ -105,7 +105,7 @@ app.post('/gifs', justAuthenticate, (req, res) =>
 });
 
 
-app.delete('/gifs/:id', justAuthenticate, (req, res) =>
+app.delete('/api/v1/gifs/:id', justAuthenticate, (req, res) =>
 {
     jwt.verify(req.token, 'myscreteisreal', (err, authData) =>
     {
@@ -193,7 +193,7 @@ app.delete('/gifs/:id', justAuthenticate, (req, res) =>
 });
 
 
-app.post('/gifs/:id/comment', justAuthenticate, (req, res) =>
+app.post('/api/v1/gifs/:id/comment', justAuthenticate, (req, res) =>
 {
     jwt.verify(req.token, 'myscreteisreal', (err, authData) =>
     {

@@ -7,7 +7,7 @@ import justAuthenticate from '../middlewares/verifyToken';
 
 const jwt = require('jsonwebtoken');
 
-app.get('/feeds', justAuthenticate, (req, res) =>
+app.get('/api/v1/feeds', justAuthenticate, (req, res) =>
 {
     jwt.verify(req.token, 'myscreteisreal', (err) =>
     {

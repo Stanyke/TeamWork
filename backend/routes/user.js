@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken');
 
 
 //Routes Middlewares
-app.get('/users', justAuthenticate, async (req, res) =>
+app.get('/api/v1/users', justAuthenticate, async (req, res) =>
 {
     const rows = await readUsers();
 
@@ -63,7 +63,7 @@ async function readUsers()
 
 
 //For Login in
-app.post('/auth/signin', (req, result) =>
+app.post('/api/v1/auth/signin', (req, result) =>
 {
     const data = {
         email: req.body.email,
@@ -87,7 +87,7 @@ app.post('/auth/signin', (req, result) =>
 
                 if (valid)
                 {
-                    jwt.sign({ data }, 'myscreteisreal', { expiresIn: '10m' }, (derr, token) =>
+                    jwt.sign({ data }, 'myscreteisreal', { expiresIn: '30m' }, (derr, token) =>
                     {
                         result.json({
                                 "status": "success",
@@ -116,7 +116,7 @@ app.post('/auth/signin', (req, result) =>
 
 
 //For creating Account
-app.post('/auth/create-user', function (req, response)
+app.post('/api/v1/auth/create-user', function (req, response)
 {
     // Grab data from http request
     const data = {
@@ -196,7 +196,7 @@ app.post('/auth/create-user', function (req, response)
                                             password: req.body.password
                                         };
 
-                                        jwt.sign({ usersData }, 'myscreteisreal', { expiresIn: '10m' }, (tokenErr, token) =>
+                                        jwt.sign({ usersData }, 'myscreteisreal', { expiresIn: '30m' }, (tokenErr, token) =>
                                         {
                                             if (tokenErr)
                                             {
