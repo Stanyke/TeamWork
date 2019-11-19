@@ -1,0 +1,69 @@
+{
+  "name": "teamwork",
+  "version": "1.0.0",
+  "description": "Teamwork is an internal social network for employees of an organization. The goal of this application is to facilitate more interaction between colleagues and promote team bonding.",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha dist/tests/**/*.js --require @babel/register --reporter spec --timeout 25000",
+    "start": "node --exec babel-node backend/server.js",
+    "start:teamwork": "nodemon --exec babel-node backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stanyke/TeamWork.git"
+  },
+  "keywords": [
+    "API",
+    "Teamwork",
+    "Andela"
+  ],
+  "author": "Stanley Chibuike",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Stanyke/TeamWork/issues"
+  },
+  "homepage": "https://github.com/Stanyke/TeamWork#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.2",
+    "@babel/node": "^7.7.0",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/register": "^7.7.0",
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.7",
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^6.2.2",
+    "nodemon": "^1.19.4"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.6.0",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "cloudinary": "^1.17.0",
+    "cookie-parser": "^1.4.4",
+    "date-and-time": "^0.10.0",
+    "debug": "^4.1.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.6-alpha.6",
+    "file-type": "^12.4.0",
+    "image-data-uri": "^2.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-simple": "^0.5.6",
+    "moment": "^2.24.0",
+    "morgan": "^1.9.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "pg": "^7.12.1",
+    "sequelize": "^5.21.2",
+    "uuid": "^3.3.3"
+  }
+}
