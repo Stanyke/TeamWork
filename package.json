@@ -7,7 +7,7 @@
     "test": "jest",
     "start": "node --exec babel-node backend/server.js",
     "start:teamwork": "nodemon --exec babel-node backend/server.js",
-    "coveralls": "jest --coverage && cat . /tests/coverage/lcov.info | coveralls"
+    "coveralls": "jest --coverage"
   },
   "repository": {
     "type": "git",
