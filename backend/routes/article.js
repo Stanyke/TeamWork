@@ -287,8 +287,8 @@ app.delete('/articles/:id', justAuthenticate, (req, res) =>
                                 const nownownow = date.format(now, 'ddd. hh:mm A, MMM. DD YYYY', true);
 
                                 res.status(200).json({
-                                    "status" : "success",
-                                    "data" : {
+                                    "status": "success",
+                                    "data": {
                                     "message": "Article successfully deleted",
                                     "time": nownownow
                                     }

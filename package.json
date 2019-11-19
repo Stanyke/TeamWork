@@ -4,15 +4,10 @@
   "description": "Teamwork is an internal social network for employees of an organization. The goal of this application is to facilitate more interaction between colleagues and promote team bonding.",
   "main": "server.js",
   "scripts": {
-    "test": "mocha dist/tests/**/*.js --require @babel/register --reporter spec --timeout 25000 jest",
+    "test": "jest",
     "start": "node --exec babel-node backend/server.js",
     "start:teamwork": "nodemon --exec babel-node backend/server.js",
-    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "!/node_modules/"
-    ]
+    "coveralls": "jest --coverage && cat . /tests/coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
@@ -35,6 +30,7 @@
     "@babel/node": "^7.7.0",
     "@babel/preset-env": "^7.7.1",
     "@babel/register": "^7.7.0",
+    "chai": "^4.2.0",
     "coveralls": "^3.0.7",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "^18.0.1",
@@ -43,14 +39,14 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7.0",
-    "jest": "^24.9.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^6.2.2",
     "nodemon": "^1.19.4"
   },
   "dependencies": {
     "@babel/polyfill": "^7.6.0",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
-    "chai": "^4.2.0",
     "cloudinary": "^1.17.0",
     "cookie-parser": "^1.4.4",
     "date-and-time": "^0.10.0",
@@ -62,7 +58,6 @@
     "image-data-uri": "^2.0.1",
     "jsonwebtoken": "^8.5.1",
     "jwt-simple": "^0.5.6",
-    "mocha": "^6.2.2",
     "moment": "^2.24.0",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",

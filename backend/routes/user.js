@@ -216,7 +216,6 @@ app.post('/auth/create-user', function (req, response)
                                                 });
                                             }
                                         });
-                                        
                                     }
                                     
                                     if (!ures.rows[0])
