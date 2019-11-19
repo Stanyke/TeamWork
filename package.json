@@ -4,10 +4,9 @@
   "description": "Teamwork is an internal social network for employees of an organization. The goal of this application is to facilitate more interaction between colleagues and promote team bonding.",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
+    "test": "mocha dist/tests/**/*.js --require @babel/register --reporter spec --timeout 25000",
     "start": "node --exec babel-node backend/server.js",
-    "start:teamwork": "nodemon --exec babel-node backend/server.js",
-    "coveralls": "jest --coverage"
+    "start:teamwork": "nodemon --exec babel-node backend/server.js"
   },
   "repository": {
     "type": "git",
