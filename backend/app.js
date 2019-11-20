@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
-// eslint-disable-next-line no-path-concat
+
 app.use(express.static(`${__dirname}/public`));
 
 app.use((req, res, next) =>
