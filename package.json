@@ -6,8 +6,7 @@
   "scripts": {
     "test": "mocha dist/tests/**/*.js --require @babel/register --reporter spec --timeout 25000",
     "start": "node backend/server.js",
-    "start:teamwork": "nodemon --exec babel-node backend/server.js",
-    "herogo": "babel-node backend/server.js"
+    "start:teamwork": "nodemon --exec babel-node backend/server.js"
   },
   "repository": {
     "type": "git",

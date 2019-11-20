@@ -1,5 +1,5 @@
 "scripts": {
-        "start": "babel-node backend/server.js"
+        "start": "node backend/server.js"
 }
 
 "engines": {
