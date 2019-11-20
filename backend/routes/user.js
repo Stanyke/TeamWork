@@ -1,12 +1,12 @@
-import bcrypt from 'bcrypt';
-
-import app from '../app';
-
-import client from '../db/connectDB';
-
-import justAuthenticate from '../middlewares/verifyToken';
+const bcrypt = require('bcrypt');
 
 const jwt = require('jsonwebtoken');
+
+const app = require('../app');
+
+const client = require('../db/connectDB');
+
+const justAuthenticate = require('../middlewares/verifyToken');
 
 
 //Routes Middlewares

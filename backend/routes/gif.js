@@ -1,15 +1,15 @@
-import date from 'date-and-time';
-
-import app from '../app';
-
-import client from '../db/connectDB';
-
-import cloudinary from '../db/cloudinary';
-
-import justAuthenticate from '../middlewares/verifyToken';
-
+const date = require('date-and-time');
 
 const jwt = require('jsonwebtoken');
+
+const app = require('../app');
+
+const client = require('../db/connectDB');
+
+const cloudinary = require('../db/cloudinary');
+
+const justAuthenticate = require('../middlewares/verifyToken');
+
 
 app.post('/api/v1/gifs', justAuthenticate, (req, res) =>
 {

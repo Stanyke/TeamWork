@@ -1,11 +1,10 @@
-import app from '../app';
-
-import client from '../db/connectDB';
-
-import justAuthenticate from '../middlewares/verifyToken';
-
-
 const jwt = require('jsonwebtoken');
+
+const app = require('../app');
+
+const client = require('../db/connectDB');
+
+const justAuthenticate = require('../middlewares/verifyToken');
 
 app.get('/api/v1/feeds', justAuthenticate, (req, res) =>
 {
