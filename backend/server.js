@@ -1,16 +1,18 @@
-import express from "express"
+const app = require('./app');
 
-const app = express();
+const routeApp = require('./routes/user');
+
+const gifRoute = require('./routes/gif');
+
+const articleRoute = require('./routes/article');
+
+const feedRoute = require('./routes/feed');
+
+const client = require('./db/connectDB');
 
 const port = process.env.PORT || 3000;
 
-
-app.get('/', (req, res) =>
-{
-    res.send("Hello user, more coming...");
-})
-
 app.listen(port, () =>
 {
-    console.log(`Server Running On port ${port}`)
+    console.log(`Server Running On port ${port}`);
 });
