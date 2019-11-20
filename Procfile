@@ -1,5 +1,5 @@
 "scripts": {
-        "start": "babel-node backend/server.js"
+        "herogo": "babel-node backend/server.js"
 }
 
 "engines": {
