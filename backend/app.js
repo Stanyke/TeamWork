@@ -4,14 +4,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-const publicR = __dirname + '/public';
-
-app.use(express.static(publicR));
-app.use("/css", express.static(__dirname + '/css'));
-app.use("/font", express.static(__dirname + '/font'));
-app.use("/img", express.static(__dirname + '/img'));
-app.use("/js", express.static(__dirname + '/js'));
-app.use("/video", express.static(__dirname + '/video'));
+app.use(express.static(`${__dirname}/public/backend`));
 
 app.use((req, res, next) =>
 {
