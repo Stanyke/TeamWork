@@ -4,9 +4,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-app.use(express.static(`${__dirname}/public`));
-
-app.use((req, res, next) =>
+app.use(express.static(`${__dirname}/public`), (req, res, next) =>
 {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	
