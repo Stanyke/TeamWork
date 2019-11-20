@@ -6,7 +6,8 @@ const client = require('../db/connectDB');
 
 const justAuthenticate = require('../middlewares/verifyToken');
 
-app.get('/api/v1/feeds', justAuthenticate, (req, res) =>
+// eslint-disable-next-line no-path-concat
+app.get(__dirname + '/api/v1/feeds', justAuthenticate, (req, res) =>
 {
     jwt.verify(req.token, 'myscreteisreal', (err) =>
     {
