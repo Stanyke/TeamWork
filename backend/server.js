@@ -1,16 +1,14 @@
-import "@babel/polyfill";
+const app = require('./app');
 
-import app from './app';
+const routeApp = require('./routes/user');
 
-import routeApp from './routes/user';
+const gifRoute = require('./routes/gif');
 
-import gifRoute from './routes/gif';
+const articleRoute = require('./routes/article');
 
-import articleRoute from './routes/article';
+const feedRoute = require('./routes/feed');
 
-import feedRoute from './routes/feed';
-
-import client from './db/connectDB';
+const client = require('./db/connectDB');
 
 const port = process.env.PORT || 3000;
 
