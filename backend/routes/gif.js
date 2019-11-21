@@ -1,3 +1,5 @@
+const path = require('path');
+
 const date = require('date-and-time');
 
 const jwt = require('jsonwebtoken');
@@ -45,59 +47,69 @@ app.post('/api/v1/gifs', justAuthenticate, (req, res) =>
                     
                     const nownownow = date.format(now, 'ddd. hh:mm A, MMM. DD YYYY', true);
 
-                    cloudinary.uploader.upload(req.body.image, { tags: 'Teamwork Gif Post' }, (cloudErr, Cloudimage) =>
+                    const filePathChecker = path.extname(req.body.image);
+
+                    if (filePathChecker === '.gif')
                     {
-                        if (cloudErr)
+                        cloudinary.uploader.upload(req.body.image, { tags: 'Teamwork Gif Post' }, (cloudErr, Cloudimage) =>
                         {
-                            console.log('We Encountered An Issue Proccessing This');
-                            res.status(500).send('We Encountered An Issue Proccessing This');
-                        }
-
-                        if (Cloudimage)
-                        {
-                            const realvalues = [req.body.title, Cloudimage.public_id, Cloudimage.url, req.body.image, postedBy, currentUserEmail, currentUsersId, nownownow];
-
-                            client.query('INSERT INTO gifs (title, imageName, imageUrl, imageType, postedBy, email, userId, createdOn) values($1, $2, $3, $4, $5, $6, $7, $8)', realvalues, (uerr, result) =>
+                            if (cloudErr)
                             {
-                                if (uerr)
-                                {
-                                    console.log('Image Posted but failed inserting to database');
-                                    res.status(201).send('Image Posted but failed insertingto database');
-                                }
+                                console.log('We Encountered An Issue Proccessing This, Probably File Does Not Exist');
+                                res.status(500).send('We Encountered An Issue Proccessing This, Probably File Does Not Exist');
+                            }
 
-                                if (result)
+                            if (Cloudimage)
+                            {
+                                const realvalues = [req.body.title, Cloudimage.public_id, Cloudimage.url, req.body.image, postedBy, currentUserEmail, currentUsersId, nownownow];
+
+                                client.query('INSERT INTO gifs (title, imageName, imageUrl, imageType, postedBy, email, userId, createdOn) values($1, $2, $3, $4, $5, $6, $7, $8)', realvalues, (uerr, result) =>
                                 {
-                                    client.query(`SELECT * FROM gifs WHERE imageName ='${Cloudimage.public_id}' LIMIT 1`, (SelErr, SelRes) =>
+                                    if (uerr)
                                     {
-                                        if (SelErr)
+                                        console.log('Image Posted but failed inserting to database');
+                                        res.status(201).send('Image Posted but failed insertingto database');
+                                    }
+
+                                    if (result)
+                                    {
+                                        client.query(`SELECT * FROM gifs WHERE imageName ='${Cloudimage.public_id}' LIMIT 1`, (SelErr, SelRes) =>
                                         {
-                                            console.log('Could not process image selection but image uploaded');
-                                            res.status(201).send('Could not process image selection but image uploaded');
-                                        }
+                                            if (SelErr)
+                                            {
+                                                console.log('Could not process image selection but image uploaded');
+                                                res.status(201).send('Could not process image selection but image uploaded');
+                                            }
 
-                                        if (SelRes)
-                                        {
-                                            const imageId = SelRes.rows[0].gif_id;
+                                            if (SelRes)
+                                            {
+                                                const imageId = SelRes.rows[0].gif_id;
 
-                                            const imageCreatedAt = SelRes.rows[0].createdOn;
+                                                const imageCreatedAt = SelRes.rows[0].createdOn;
 
-                                            console.log('Successfully Uploaded Post');
-                                            res.status(201).json({
-                                                "status": "success",
-                                                "data": {
-                                                "gifId": imageId,
-                                                "message": "GIF image successfully posted",
-                                                "createdOn": imageCreatedAt,
-                                                "title": req.body.title,
-                                                "imageUrl": Cloudimage.url
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    });
+                                                console.log('Successfully Uploaded Post');
+                                                res.status(201).json({
+                                                    "status": "success",
+                                                    "data": {
+                                                    "gifId": imageId,
+                                                    "message": "GIF image successfully posted",
+                                                    "createdOn": imageCreatedAt,
+                                                    "title": req.body.title,
+                                                    "imageUrl": Cloudimage.url
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    else
+                    {
+                        console.log('File Selected Is Not A Gif File');
+                        res.status(403).send('File Selected Is Not A Gif File');
+                    }
                 }
             });
         }
