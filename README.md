@@ -1,6 +1,6 @@
 # TeamWork
 
-[![Build Status](https://travis-ci.org/Stanyke/TeamWork.svg?branch=post-article)](https://travis-ci.org/Stanyke/TeamWork)
+[![Build Status](https://travis-ci.org/Stanyke/TeamWork.svg?branch=master)](https://travis-ci.org/Stanyke/TeamWork)
 
 Teamwork is an internal social network for employees of an organization. The goal of this application is to facilitate more interaction between colleagues and promote team bonding.
 
@@ -150,3 +150,4 @@ number would be appropriate and avoid dot notation such as 1.0. An example of th
 will be https://somewebapp.com/api/v1.
 
 6. Implementation of token-based authentication using JSON Web Token (JWT) and securing of all
+routes requiring authentication, using JSON Web Token (JWT).
