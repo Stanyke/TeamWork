@@ -297,8 +297,4 @@ app.post('/api/v1/gifs/:id/comment', justAuthenticate, (req, res) =>
 
 const gifRoute = app;
 
-<<<<<<< HEAD
 module.exports = gifRoute;
-=======
-module.exports = gifRoute;
->>>>>>> 58e3a690fdd76e2e728a8869d079fab6cae3b1e8
