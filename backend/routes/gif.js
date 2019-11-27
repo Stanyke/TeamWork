@@ -129,7 +129,7 @@ app.get('/api/v1/gifs/:id', justAuthenticate, (req, res) =>
         {
             const gifId = req.params.id;
 
-            if (!articleId)
+            if (!gifId)
             {
                 return res.status(400).send({ error: true, message: 'Please provide a gif ID' });
             }
