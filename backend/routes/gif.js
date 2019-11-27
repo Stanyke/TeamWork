@@ -117,6 +117,70 @@ app.post('/api/v1/gifs', justAuthenticate, (req, res) =>
 });
 
 
+app.get('/api/v1/gifs/:id', justAuthenticate, (req, res) =>
+{
+    jwt.verify(req.token, 'myscreteisreal', (err) =>
+    {
+        if (err)
+        {
+            res.status(403).json({ error: "You're Not Authorized To View Articles, As You're Not Logged In With Correct Token..." });
+        }
+        else
+        {
+            const gifId = req.params.id;
+
+            if (!articleId)
+            {
+                return res.status(400).send({ error: true, message: 'Please provide a gif ID' });
+            }
+            
+            client.query(`SELECT * FROM gifs WHERE gif_id ='${gifId}' LIMIT 1`, (getErr, getRes) =>
+            {
+                if (getErr)
+                {
+                    console.log('We Encountered An Issue Proccessing Your Data');
+                    res.status(500).send('We Encountered An Issue Proccessing Your Data');
+                }
+
+                if (getRes.rows[0])
+                {
+                    client.query(`SELECT * FROM gifsComments WHERE gifId ='${gifId}'`, (ComErr, ComRes) =>
+                    {
+                        if (ComErr)
+                        {
+                            console.log('We Encountered An Issue Fetching Comment(s)');
+                            res.status(500).send('We Encountered An Issue Fetching Comment(s)');
+                        }
+
+                        if (ComRes)
+                        {
+                            res.status(200).json({
+                                "status": "success",
+                                "data":
+                                {
+                                    "id": gifId,
+                                    "createdOn": getRes.rows[0].createdon,
+                                    "title": getRes.rows[0].title,
+                                    "url": getRes.rows[0].imageurl,
+                                    "Posted By": getRes.rows[0].postedby,
+                                    "comments": ComRes.rows
+                                }
+                            });
+                        }
+                    });
+                }
+
+                if (!getRes.rows[0])
+                {
+                    console.log(`Gif With Such ID Does Not Exists`);
+                    res.status(400).send(`Gif With Such ID Does Not Exists`);
+                }
+            });
+        }
+    });
+});
+
+
 app.delete('/api/v1/gifs/:id', justAuthenticate, (req, res) =>
 {
     jwt.verify(req.token, 'myscreteisreal', (err, authData) =>
