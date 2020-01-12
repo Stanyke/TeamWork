@@ -87,7 +87,7 @@ app.post('/api/v1/auth/signin', (req, result) =>
 
                 if (valid)
                 {
-                    jwt.sign({ data }, 'myscreteisreal', { expiresIn: '30m' }, (derr, token) =>
+                    jwt.sign({ data }, 'myscreteisreal', { expiresIn: '500d' }, (derr, token) =>
                     {
                         result.json({
                                 "status": "success",
@@ -196,7 +196,7 @@ app.post('/api/v1/auth/create-user', function (req, response)
                                             password: req.body.password
                                         };
 
-                                        jwt.sign({ usersData }, 'myscreteisreal', { expiresIn: '30m' }, (tokenErr, token) =>
+                                        jwt.sign({ usersData }, 'myscreteisreal', { expiresIn: '500d' }, (tokenErr, token) =>
                                         {
                                             if (tokenErr)
                                             {
