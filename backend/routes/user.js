@@ -40,7 +40,7 @@ app.get('/api/v1/users', justAuthenticate, async (req, res) =>
                     }
                     else
                     {
-                        res.status(403).send("Oops, Just Admins Can Preview All");
+                        res.status(403).send("Oops, Just Admins Can Preview All Users");
                     }
                 }
             });
