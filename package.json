@@ -39,7 +39,7 @@
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "istanbul": "^0.4.5",
-    "mocha": "^6.2.2",
+    "mocha": "^10.2.0",
     "nodemon": "^1.19.4"
   },
   "dependencies": {
@@ -49,7 +49,7 @@
     "@babel/preset-env": "^7.7.1",
     "@babel/register": "^7.7.0",
     "@babel/polyfill": "^7.6.0",
-    "mocha": "^6.2.2",
+    "mocha": "^10.2.0",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "cloudinary": "^1.17.0",
